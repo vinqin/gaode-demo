@@ -1,0 +1,18 @@
+{
+  "status": "1",
+  "count": "1",
+  "info": "OK",
+  "infocode": "10000",
+  "tips": [
+    {
+      "id": "B02F201FED",
+      "name": "南香渔港(总店)",
+      "district": "广东省汕头市金平区",
+      "adcode": "440511",
+      "location": "116.713041,23.389342",
+      "address": "东厦北路报春园临时商铺E幢",
+      "typecode": "050119",
+      "city": ""
+    }
+  ]
+}
