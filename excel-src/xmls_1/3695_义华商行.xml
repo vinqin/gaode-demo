@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>1</status><count>2</count><info>OK</info><infocode>10000</infocode><tips type="list"><tip><id>B02F201R14</id><name>义华商行(金砂西路)</name><district>广东省汕头市金平区</district><adcode>440511</adcode><location>116.692770,23.365668</location><address>金砂路22号</address><typecode>060200</typecode><city></city></tip><tip><id>B0FFGPJNXG</id><name>亿华商行</name><district>广东省汕头市潮阳区</district><adcode>440513</adcode><location>116.414998,23.346960</location><address>谷饶镇有源路41号</address><typecode>060000</typecode><city></city></tip></tips></response>
