@@ -1,6 +1,7 @@
 # IntelliJ project files
 .idea
 *.iml
+.attach_pid*
 out
 gen
 target
