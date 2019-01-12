@@ -2,6 +2,7 @@ package edu.stu;
 
 import com.google.gson.Gson;
 import edu.stu.bean.Result;
+import edu.stu.bean.Tip;
 import edu.stu.domain.SearchResult;
 import edu.stu.util.HttpDemo;
 import edu.stu.util.Tools;
@@ -18,7 +19,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class MainTest {
 
@@ -79,7 +82,7 @@ public class MainTest {
         fileOut.close();
     }
 
-    private static final File targetFile = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/test_result.xlsx");
+    private static final File targetFile = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/dianping_st_1.xlsx");
 
     // we create an XSSF Workbook object for our XLSX Excel File
     private XSSFWorkbook targetWorkbook;
@@ -173,4 +176,94 @@ public class MainTest {
         fis.close();
     }
 
+    @Test
+    public void test6() throws JAXBException, IOException {
+        File targetDir = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_4");
+        File[] files = targetDir.listFiles();
+        Map<String, LA> map = new HashMap<>();
+
+        if (files != null) {
+            for (File file : files) {
+                JAXBContext jaxbContext = JAXBContext.newInstance(edu.stu.bean.SearchResult.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+                edu.stu.bean.SearchResult result;
+                try {
+                    result = (edu.stu.bean.SearchResult) jaxbUnmarshaller.unmarshal(file);
+                } catch (Exception e) {
+                    System.err.println(e);
+                    continue;
+                }
+
+
+                if (result.getTips() == null || result.getTips().getTips() == null) {
+                    continue;
+                }
+                Tip tip = result.getTips().getTips().get(0);
+                if (tip == null) {
+                    continue;
+                }
+                String name = tip.getName();
+                LA la = new LA();
+                la.setLongitude(tip.getLocation());
+                la.setAddress(tip.getDistrict() + tip.getAddress());
+                map.put(name, la);
+            }
+        }
+
+        File _targetFile = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/dianping_st_1.xlsx");
+        FileInputStream fis = new FileInputStream(_targetFile);
+        XSSFWorkbook _targetWorkbook = new XSSFWorkbook(fis);
+        XSSFSheet _targetSheet = _targetWorkbook.getSheetAt(0);
+        fis.close();
+
+        Iterator<Row> rows = _targetSheet.iterator();
+        for (int i = 0;
+             rows.hasNext();
+             i++) {
+            Row row = rows.next();
+            if (i < 2) {
+                // 跳过最开始的两行
+                continue;
+            }
+
+            String storeName = row.getCell(2).toString();
+            LA la = map.get(storeName);
+            if (la == null) {
+                continue;
+            }
+            row.createCell(3).setCellValue(la.getLongitude()); // 设置经纬度的值
+            row.createCell(5).setCellValue(la.getAddress()); // 设置详细地址信息
+        }
+
+        FileOutputStream fos = new FileOutputStream(_targetFile);
+        _targetWorkbook.write(fos);
+        _targetWorkbook.close();
+        fos.close();
+
+    }
+
+
+    private static class LA {
+        private String longitude;
+
+        private String address;
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        void setLongitude(String longitude) {
+            int commaIndex = longitude.indexOf(",");
+            this.longitude = longitude.substring(0, commaIndex + 1) + "  " + longitude.substring(commaIndex + 1);
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        void setAddress(String address) {
+            this.address = address;
+        }
+    }
 }

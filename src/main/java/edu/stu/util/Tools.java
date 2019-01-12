@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Tools {
 
@@ -31,7 +30,7 @@ public class Tools {
 
     private static final File sourceDirRootPath = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/大众点评数据/");
 
-    private static final String targetXMLSDir = "/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_3/";
+    private static final String targetXMLSDir = "/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_4/";
 
     private static Tools tools = new Tools();
 
@@ -140,7 +139,9 @@ public class Tools {
             Row row = rowIt.next();
             // iterate on cells for the current row
             Iterator<Cell> cellIterator = row.cellIterator();
-            for (int i = 0; cellIterator.hasNext(); i++) {
+            for (int i = 0;
+                 cellIterator.hasNext();
+                 i++) {
                 if (i > 2 && !isRepast) {
                     break;
                 }
@@ -198,7 +199,8 @@ public class Tools {
     // 高德 输入提示 API接口
     private static final String URL = "https://restapi.amap.com/v3/assistant/inputtips";
 
-    private static final String KEY = "ea12dc25df82114c19bc0870c5a348ed";
+    //private static final String KEY = "ea12dc25df82114c19bc0870c5a348ed";
+    private static final String KEY = "a1b031bea1efbbfedab7057fe002270f";
 
 
     /**
@@ -266,6 +268,11 @@ public class Tools {
                 continue;
             }
 
+            if (row.getCell(3) != null && !"".equals(row.getCell(3).toString())) {
+                // 如果目标表中的某一行中包含商铺经纬度的数据，那么跳过该行
+                continue;
+            }
+
             Result result = new Result();
             result.setCity(row.getCell(0).toString());
             result.setCategory(row.getCell(1).toString());
@@ -285,7 +292,9 @@ public class Tools {
     public void requestGaoDe(int startIndex, int endIndex) {
         List<Result> results = getResults();
 
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex;
+             i < endIndex;
+             i++) {
             Result re = results.get(i);
             try {
                 String xmlString = requestForHttp("", re.getCity(), re.getStoreName());

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>1</status><count>2</count><info>OK</info><infocode>10000</infocode><tips type="list"><tip><id>B0FFIJP2UI</id><name>本地家猪</name><district>广东省汕头市金平区</district><adcode>440511</adcode><location>116.698860,23.359040</location><address>中山中路72号010附近</address><typecode>060704</typecode><city></city></tip><tip><id>B0FFIWE801</id><name>本地家猪</name><district>广东省汕头市澄海区</district><adcode>440515</adcode><location>116.777278,23.465872</location><address>东湖大道35号附近</address><typecode>050300</typecode><city></city></tip></tips></response>
