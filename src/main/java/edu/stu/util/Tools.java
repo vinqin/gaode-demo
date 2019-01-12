@@ -30,7 +30,7 @@ public class Tools {
 
     private static final File sourceDirRootPath = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/大众点评数据/");
 
-    private static final String targetXMLSDir = "/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_4/";
+    private static final String targetXMLSDir = "/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_5/";
 
     private static Tools tools = new Tools();
 
@@ -199,8 +199,20 @@ public class Tools {
     // 高德 输入提示 API接口
     private static final String URL = "https://restapi.amap.com/v3/assistant/inputtips";
 
-    //private static final String KEY = "ea12dc25df82114c19bc0870c5a348ed";
-    private static final String KEY = "a1b031bea1efbbfedab7057fe002270f";
+    //private static final String KEY = "ea12dc25df82114c19bc0870c5a348ed"; // Vin
+    //private static final String KEY = "a1b031bea1efbbfedab7057fe002270f"; // Li
+    //private static final String KEY = "32765ece7473247e45753430a3669fa6"; // Guo
+    //private static final String KEY = "3410230671d826b23ab02758870aa754"; // Su
+
+    /**
+     * Vin: m1884412@163.com
+     * Guo: valiant@vqin.xin
+     * Su: gaode1@vqin.xin
+     */
+
+    private static final String[] KEYS =
+            {"ea12dc25df82114c19bc0870c5a348ed", "a1b031bea1efbbfedab7057fe002270f",
+                    "32765ece7473247e45753430a3669fa6", "3410230671d826b23ab02758870aa754"};
 
 
     /**
@@ -213,7 +225,7 @@ public class Tools {
         Map<String, String> param = new HashMap<>();
         param.put("keywords", storeName);
         param.put("city", city);
-        param.put("key", KEY);
+        param.put("key", _key);
         param.put("citylimit", "true"); // 限制结果为某个具体的城市
         param.put("output", "XML");
 
@@ -292,12 +304,14 @@ public class Tools {
     public void requestGaoDe(int startIndex, int endIndex) {
         List<Result> results = getResults();
 
+        int indexOfKeys = 0;
+
         for (int i = startIndex;
              i < endIndex;
              i++) {
             Result re = results.get(i);
             try {
-                String xmlString = requestForHttp("", re.getCity(), re.getStoreName());
+                String xmlString = requestForHttp(KEYS[indexOfKeys], re.getCity(), re.getStoreName());
 
                 JAXBContext jaxbContext = JAXBContext.newInstance(edu.stu.bean.SearchResult.class);
                 Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -307,7 +321,11 @@ public class Tools {
                 if ("0".equals(searchResult.getStatus())) {
                     System.out.println("高德API查询失败！");
                     System.out.println(xmlString);
-                    return;
+                    indexOfKeys++;
+                    if (indexOfKeys >= KEYS.length) {
+                        return;
+                    }
+                    continue;
                 }
 
                 File xmlFile = new File(targetXMLSDir + i + "_" + re.getStoreName() + ".xml");

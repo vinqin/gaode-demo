@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>1</status><count>2</count><info>OK</info><infocode>10000</infocode><tips type="list"><tip><id>B02F20OVTU</id><name>佳鑫超市</name><district>广东省汕头市澄海区</district><adcode>440515</adcode><location>116.789276,23.523298</location><address>莲上镇涂城不夜城</address><typecode>060400</typecode><city></city></tip><tip><id>B02F20OTPI</id><name>佳鑫超市(玉亭路)</name><district>广东省汕头市澄海区</district><adcode>440515</adcode><location>116.759256,23.463526</location><address>玉亭路附近</address><typecode>060400</typecode><city></city></tip></tips></response>

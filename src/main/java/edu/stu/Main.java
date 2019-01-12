@@ -16,8 +16,18 @@ public class Main {
         Tools tools = Tools.getInstance();
         List<Result> results = tools.getResults();
 
+        System.out.println("还剩" + results.size() + "条记录未查询");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         int threadCounts = results.size() / 1000; // 每条线程均分1000个下载任务
-        for (i = 0; i < threadCounts; i++) {
+        for (i = 0;
+             i < threadCounts;
+             i++) {
             new Thread(() -> {
                 int startIndex;
                 int endIndex;

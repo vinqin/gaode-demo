@@ -178,7 +178,7 @@ public class MainTest {
 
     @Test
     public void test6() throws JAXBException, IOException {
-        File targetDir = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_4");
+        File targetDir = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/xmls_5");
         File[] files = targetDir.listFiles();
         Map<String, LA> map = new HashMap<>();
 
@@ -192,6 +192,8 @@ public class MainTest {
                     result = (edu.stu.bean.SearchResult) jaxbUnmarshaller.unmarshal(file);
                 } catch (Exception e) {
                     System.err.println(e);
+                    System.out.println("文件内容是：");
+                    System.out.println(FileUtils.readFileToString(file, "UTF-8"));
                     continue;
                 }
 
@@ -210,6 +212,8 @@ public class MainTest {
                 map.put(name, la);
             }
         }
+
+        System.out.println("新添加" + map.size() + "行数据");
 
         File _targetFile = new File("/home/vinqin/IdeaProjects/gaode-demo/excel-src/dianping_st_1.xlsx");
         FileInputStream fis = new FileInputStream(_targetFile);

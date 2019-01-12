@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>1</status><count>2</count><info>OK</info><infocode>10000</infocode><tips type="list"><tip><id>B02F2021T2</id><name>鸿生堂</name><district>广东省汕头市金平区</district><adcode>440511</adcode><location>116.712960,23.358922</location><address>东方街道公信路13号</address><typecode>090601</typecode><city></city></tip><tip><id>B0FFJCYYVR</id><name>洪生堂药店</name><district>广东省汕头市潮阳区</district><adcode>440513</adcode><location>116.530109,23.251023</location><address>梅花村梅西林八巷西门</address><typecode>090000</typecode><city></city></tip></tips></response>
